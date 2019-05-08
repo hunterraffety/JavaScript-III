@@ -70,6 +70,9 @@ Humanoid.prototype = Object.create(CharacterStats.prototype);
 Humanoid.prototype.greet = function() {
   return `${this.name} offers an enthusiastic greeting in ${this.language}!`;
 };
+Humanoid.prototype.attack = function() {
+  return Math.floor(Math.random() * Math.floor(25));
+};
 
 /*
  * Inheritance chain: GameObject -> CharacterStats -> Humanoid
@@ -188,6 +191,8 @@ Hero.prototype.takeDmg = function() {
     return `You're alive and well, fight on sir!`;
   }
 };
+
+// console.log(villain.attack());
 
 console.log(villain);
 console.log(villain.subtractHealth());

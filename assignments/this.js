@@ -16,31 +16,30 @@
 // Principle 1 - attaching this to a window
 // code example for Window Binding
 function windowBinding() {
-  console.log('Window binding scope: ', this);
   return this;
 }
 
 // function invokation
 windowBinding();
 
+console.log(this);
+
 // Principle 2 -- creating an implicit binding when a method created within a function is attached to an object on the left side of our .
 // code example for Implicit Binding
 const myObj = {
   greeting: 'Hello',
   sayHello: function(name) {
-    console.log(`${this.greeting} my name is ${name}`);
-    console.log(this);
+    return `${this.greeting} my name is ${name}`;
   }
 };
 
-myObj.sayHello('Hunter');
+console.log(myObj.sayHello('Hunter'));
 
 // obj is the parameter
 const sayNameFunc = obj => {
   // creating the sayName method on this object
   obj.sayName = function() {
-    console.log(`Hello, my name is ${this.name}`);
-    console.log(this);
+    return `Hello, my name is ${this.name}`;
   };
 };
 
@@ -53,17 +52,16 @@ sayNameFunc(me);
 sayNameFunc(you);
 
 // invokation of our functions on the objects we created
-me.sayName();
-you.sayName();
+console.log(me.sayName());
+console.log(you.sayName());
 
 // Principle 3 -- contructor functions and New binding
 // code example for New Binding
 function Voter(name) {
   this.voterName = name;
-  this.desire = "I'd like to vote, my name is ";
+  this.desire = "I'd like to register to vote, my name is ";
   this.speak = () => {
-    console.log(`${this.desire} ${this.voterName}.`);
-    console.log(this);
+    return `${this.desire} ${this.voterName}.`;
   };
 }
 
@@ -73,6 +71,8 @@ const anotherDude = new Voter('Turkey');
 hunter.speak();
 anotherDude.speak();
 
+console.log(hunter.speak());
+console.log(anotherDude.speak());
 // Principle 4
 // code example for Explicit Binding
 function Musician(arch) {
@@ -104,11 +104,12 @@ const newMusician2 = new Musician({
   name: 'Hunterasdasdsadasdasd',
   instrument: 'Drums',
   yearsPlaying: 15,
-  bandName: 'Turkeys on the Run'
+  bandName: 'Midnight Sun Run'
 });
 
 const newMusician3 = new Musician({
-  name: 'asdkjlasdljkasdjlkdas'
+  name: 'asdkjlasdljkasdjlkdas',
+  bandName: "Judge Judy's Subjects"
 });
 
 console.log(newMusician.tellDetail());
@@ -118,3 +119,7 @@ console.log(newMusician3.tellDetail());
 console.log(newMusician.tellDetails());
 console.log(newMusician2.tellDetails());
 console.log(newMusician3.tellDetails());
+
+console.log(newMusician3.tellDetail.apply(newMusician2));
+console.log(newMusician.tellDetail.apply(newMusician3));
+console.log(newMusician3.tellDetail.apply(newMusician));
